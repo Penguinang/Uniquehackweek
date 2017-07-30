@@ -1,0 +1,32 @@
+﻿<Properties StartupItem="Assembly-CSharp.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/scripts/playingscene/cube/basicCube.cs">
+    <Files>
+      <File FileName="Assets/scripts/playingscene/cube/basicCube.cs" Line="24" Column="30" />
+      <File FileName="Assets/scripts/playingscene/cube/spawnCube.cs" Line="33" Column="45" />
+      <File FileName="Assets/scripts/playingscene/gameController.cs" Line="30" Column="32" />
+      <File FileName="Assets/scripts/playingscene/cube/slowdownCube.cs" Line="10" Column="55" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="link" expanded="True">
+            <Node name="Assembly-CSharp" expanded="True">
+              <Node name="scripts" expanded="True">
+                <Node name="playingscene" expanded="True">
+                  <Node name="cube" expanded="True">
+                    <Node name="basicCube.cs" selected="True" />
+                  </Node>
+                </Node>
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

@@ -1,0 +1,134 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using System;
+
+public class basicCube : MonoBehaviour {
+	public static float velocity = 7;
+	public static float precision = 0.12f;
+	public static float highVelocity = 20;
+	public static float greatPrecision = 0.3f;
+	public static float lowVelocity = 1;
+	public static float smallPrecision = 0.05f;
+	public static float commonVelocity = 7;
+	public static float commonPrecision = 0.12f;
+
+	bool punish = false;
+
+	public bool arrived = false;
+	bool onGround = false;
+	public float destination;
+	public float cubeLength = 1.2f;
+	public List<List<GameObject>> map;
+	public int[] top;
+	public int indexX;
+	public int indexY;
+
+	void Start () {
+//		transform.GetComponent<Rigidbody2D> ().velocity = new Vector3(0,-commonVelocity,0);
+		destination = transform.position.y;
+	}
+
+	void Update () {
+		if (arrived) {
+			if (indexY > 0 && !map [indexX] [indexY - 1])
+				down ();
+		} 
+		else {
+			if (!punish) {
+				if (Mathf.Abs (destination - transform.position.y) < precision)
+					arrive ();
+				else
+					transform.position -= new Vector3 (0, velocity * Time.deltaTime, 0);
+			}
+			else {
+				if (Mathf.Abs (destination - transform.position.y) < greatPrecision) 
+					arrive ();
+				else
+					transform.position -= new Vector3 (0, highVelocity * Time.deltaTime, 0);
+			}
+			
+		}
+	}
+
+	public void _goto(float des)
+	{
+		destination = des;
+		arrived = false;
+	}
+
+	public void down()
+	{
+		destination = destination - cubeLength;
+		map [indexX] [indexY] = null;
+		_goto (destination);
+		indexY -= 1;
+//		transform.GetComponent<Rigidbody2D> ().velocity = new Vector3(0,-commonVelocity,0);
+	}
+
+//	void OnTriggerEnter2D()
+//	{
+//		arrive ();
+//		print ("arrive");
+//	}
+
+	void arrive()
+	{
+		if (indexY == 0 || map [indexX] [indexY - 1])
+		if (!onGround) {
+			onGround = true;
+			top [indexX]++;
+			//方块第一次落地后，会关闭方块的误点击惩罚功能
+			inactivatepunish ();
+		}
+		transform.position = new Vector3(transform.position.x, destination,transform.position.z);
+		arrived = true;
+		map [indexX] [indexY] = gameObject;
+
+//		transform.GetComponent<Rigidbody2D> ().velocity = new Vector3(0,0,0);
+	} 	
+
+	public bool getArriveState()
+	{
+		return arrived && onGround;
+	}
+
+	public void destroy()
+	{
+		map[indexX][indexY] = null;
+		top [indexX]--;
+		
+		print ("destroy "+indexX+" "+indexY);
+		Destroy (gameObject);
+	}
+
+	void OnMouseUp()
+	{
+		if (getArriveState ())
+			destroy ();
+		else {
+		};
+	}
+
+	static public void slowDown()
+	{
+		velocity = lowVelocity;
+		precision = smallPrecision;
+	}
+	static public void recoverVelocity()
+	{
+		velocity = commonVelocity;
+		precision = commonPrecision;
+	}
+
+	public void activatePunish()
+	{
+		punish = true;
+	}
+	public void inactivatepunish()
+	{
+		punish = false;
+		if(GetComponent<punishCube>())
+			GetComponent<punishCube> ().enabled = false;
+	}
+}
