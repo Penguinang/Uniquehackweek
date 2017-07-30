@@ -5,13 +5,15 @@ using System;
 
 public class basicCube : MonoBehaviour {
 	public static float velocity = 7;
-	public static float precision = 0.12f;
+	public static float precision = 0.15f;
 	public static float highVelocity = 20;
 	public static float greatPrecision = 0.3f;
 	public static float lowVelocity = 1;
 	public static float smallPrecision = 0.05f;
 	public static float commonVelocity = 7;
-	public static float commonPrecision = 0.12f;
+	public static float commonPrecision = 0.15f;
+
+	static int destroyNumber = 0;
 
 	bool punish = false;
 
@@ -79,7 +81,8 @@ public class basicCube : MonoBehaviour {
 			onGround = true;
 			top [indexX]++;
 			//方块第一次落地后，会关闭方块的误点击惩罚功能
-			inactivatepunish ();
+			if(indexY>0)
+				inactivatepunish ();
 		}
 		transform.position = new Vector3(transform.position.x, destination,transform.position.z);
 		arrived = true;
@@ -96,18 +99,11 @@ public class basicCube : MonoBehaviour {
 	public void destroy()
 	{
 		map[indexX][indexY] = null;
-		top [indexX]--;
-		
+		if(getArriveState())
+			top [indexX]--;
+		destroyNumber++;
 		print ("destroy "+indexX+" "+indexY);
 		Destroy (gameObject);
-	}
-
-	void OnMouseUp()
-	{
-		if (getArriveState ())
-			destroy ();
-		else {
-		};
 	}
 
 	static public void slowDown()
@@ -120,6 +116,18 @@ public class basicCube : MonoBehaviour {
 		velocity = commonVelocity;
 		precision = commonPrecision;
 	}
+	static public void pause()
+	{
+		velocity = 0;
+	}
+	static public void init()
+	{
+		destroyNumber = 0;
+	}
+	static public int getDestroyNumber()
+	{
+		return destroyNumber;
+	}
 
 	public void activatePunish()
 	{
@@ -131,4 +139,6 @@ public class basicCube : MonoBehaviour {
 		if(GetComponent<punishCube>())
 			GetComponent<punishCube> ().enabled = false;
 	}
+
+
 }

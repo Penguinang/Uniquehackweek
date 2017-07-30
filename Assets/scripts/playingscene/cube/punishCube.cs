@@ -16,6 +16,7 @@ public class punishCube : MonoBehaviour {
 
 	void explode()
 	{
+		print ("explode");
 		for (int i = basic.indexX - 4; i < basic.indexX + 4&&i<7; i++)
 			for (int j = basic.indexY - 4; j < basic.indexY + 4&&j<15; j++)
 				if (i >= 0 && j >= 0 && basic.map [i] [j])

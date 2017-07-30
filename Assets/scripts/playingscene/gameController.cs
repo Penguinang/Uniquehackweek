@@ -1,26 +1,79 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
 public class gameController : MonoBehaviour {
 	public List<List<GameObject>> map;
 	public int[] top;
+	public List<GameObject> clicks;
+	public GameObject cubepool;
+	public GameObject cubeSpawner;
 
+	public GameObject line;
+	public GameObject pauseLayer;
+	public GameObject gameoverLayer;
+
+	bool running = true;
 	void Start () {
 		
 	}
 
 	void Update () {
 		for (int i = 0; i < 7; i++) {
-			if (top[i]>9)
+			if (top[i]>8&&running)
 				gameOver ();
 		}
 	}
 
 	public void gameOver()
 	{
-		print ("gameOver");
+		running = false;
+//		SceneManager.LoadScene ("start");
+		gameoverLayer.SetActive(true);
+		basicCube.pause ();
+	}
+
+	public void pause()
+	{
+		running = false;
+		cubeSpawner.GetComponent<spawnCube>().pause ();
+		pauseLayer.SetActive (true);
+		basicCube.pause ();
+		
+	}
+	public void _continue()
+	{
+		running = true;
+		cubeSpawner.GetComponent<spawnCube>().recover ();
+		pauseLayer.SetActive (false);
+		basicCube.recoverVelocity ();
+	}
+
+	public void exit()
+	{
+		Application.Quit ();
+	}
+
+	public void restart()
+	{
+		running = true;
+		destroyAll ();
+		for (int i = 0; i < cubepool.transform.childCount; i++) {
+			if(!cubepool.transform.GetChild (i).GetComponent<basicCube> ().getArriveState())
+				cubepool.transform.GetChild (i).GetComponent<basicCube> ().destroy ();
+		}
+		basicCube.init ();
+		pauseLayer.SetActive (false);
+		gameoverLayer.SetActive (false);
+		cubeSpawner.GetComponent<spawnCube> ().recover ();
+		basicCube.recoverVelocity ();
+	}
+
+	public void home()
+	{
 		SceneManager.LoadScene ("start");
 	}
 
@@ -58,5 +111,116 @@ public class gameController : MonoBehaviour {
 			for (int j = 0; j < 10; j++)
 				if (map [i] [j]&&map[i][j].tag == color)
 					map [i] [j].GetComponent<basicCube>().destroy ();
+	}
+
+	public void click(GameObject cube)
+	{
+		clicks.Add (cube);
+		for (int i = 0; i < clicks.Count; i++)
+			if (!clicks[i])
+				clicks.RemoveAt (i);
+		if (clicks.Count >= 2)
+			Link ();
+	}
+
+	public void Link()
+	{
+		GameObject start = clicks [0];
+		int startX = start.GetComponent<basicCube> ().indexX;
+		int startY = start.GetComponent<basicCube> ().indexY;
+
+		GameObject end = clicks [1];
+		int endX = end.GetComponent<basicCube> ().indexX;
+		int endY = end.GetComponent<basicCube> ().indexY;
+
+		if (start.tag != end.tag) {
+			start.GetComponent<clicktolink> ().unselect ();
+			clicks.RemoveAt (0);
+			return;
+		}
+
+		List<int []> starts = new List<int[]>();
+		List<int[]> ends = new List<int[]> ();
+		starts.Add (new int[2]{startX,startY});
+		ends.Add (new int[2]{endX,endY});
+
+		for (int i = startY+1; i < 15&&!map [startX] [i]; i++) 
+			starts.Add (new int[2] {startX, i});		
+		if(startY == 0)
+			starts.Add (new int[2] {startX, -1});
+
+		for (int i = startX + 1; i <= 7 && (i==7||!map [i] [startY]); i++)
+			starts.Add (new int[2] {i,startY});
+		for (int i = startX - 1; i >= -1 && (i==-1||!map [i] [startY]); i--)
+			starts.Add (new int[2] {i,startY});
+
+		for (int i = endY+1; i < 15&&!map [endX] [i]; i++) 
+			ends.Add (new int[2] {endX, i});		
+		if(endY == 0)
+			ends.Add (new int[2] {endX, -1});
+
+		for (int i = endX + 1; i <= 7 && (i==7||!map [i] [endY]); i++)
+			ends.Add (new int[2] {i,endY});
+		for (int i = endX - 1; i >= -1 && (i==-1||!map [i] [endY]); i--)
+			ends.Add (new int[2] {i,endY});
+			
+		bool found = false;
+		int s = 0, e = 0;
+		for(int i=0;i<starts.Count&&!found;i++)
+			for (int j = 0; j < ends.Count&&!found; j++) {
+				if (starts [i] [0] == ends [j] [0]) {
+					found = true;
+					int min = starts [i] [1] < ends [j] [1] ? starts [i] [1] : ends [j] [1];
+					int max = starts [i] [1] >= ends [j] [1] ? starts [i] [1] : ends [j] [1];
+					for (int k = min+1; k < max; k++)
+						if (starts [i] [0]>=0&&starts [i] [0]<=6&&k>=0&&k<=14&&map [starts [i] [0]] [k]) {
+							found = false;
+							break;
+						}
+						
+					if (found) {
+						s = i;
+						e = j;
+						break;
+					}
+				}
+				else if (starts [i] [1] == ends [j] [1]) {
+					found = true;
+					int min = starts [i] [0] < ends [j] [0] ? starts [i] [0] : ends [j] [0];
+					int max = starts [i] [0] >= ends [j] [0] ? starts [i] [0] : ends [j] [0];
+					for (int k = min+1; k < max; k++)
+						if (starts[i][1]>=0&&starts[i][1]<=14&&k>=0&&k<=6&&map [k] [starts [i] [1]]) {
+							found = false;
+							break;
+						}
+					
+					if (found) {
+						s = i;
+						e = j;
+						break;
+					}
+				}
+			}
+
+
+		if (found) {
+			print ("found");
+			GameObject _line = Instantiate(line);
+			_line.GetComponent<LineRenderer> (). SetPosition (0,new Vector3((startX-3)*1.2f,(startY-7)*1.2f,-1));
+			_line.GetComponent<LineRenderer> ().SetPosition (1,new Vector3((starts[s][0]-3)*1.2f,(starts[s][1]-7)*1.2f,-1));
+			_line.GetComponent<LineRenderer> ().SetPosition (2,new Vector3((ends[e][0]-3)*1.2f,(ends[e][1]-7)*1.2f,-1));
+			_line.GetComponent<LineRenderer> (). SetPosition (3,new Vector3((endX-3)*1.2f,(endY-7)*1.2f,-1));
+
+			start.GetComponent<clicktolink> ().unselect ();
+			end.GetComponent<clicktolink> ().unselect ();
+			start.GetComponent<basicCube> ().destroy ();
+			end.GetComponent<basicCube> ().destroy ();
+			clicks.RemoveAt (1);
+			clicks.RemoveAt (0);
+		} else {
+			print ("no way");
+			start.GetComponent<clicktolink> ().unselect ();
+			clicks.RemoveAt (0);
+		}
 	}
 }

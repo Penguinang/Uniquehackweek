@@ -6,7 +6,16 @@ public class spawnCube : MonoBehaviour {
 	public Transform cubeSpawnPosition;
 	public GameObject[] cubes;
 	public GameObject gameController;
+	public GameObject cubepool;
 	List<List<GameObject>> map;
+	public float _internal = 0.3f;
+
+	public int common = 10;
+	public int slow = 6;
+	public int color = 3;
+	public int rows = 2;
+	public int all = 1;
+	public int punish = 2;
 
 	int[] top;
 
@@ -22,28 +31,57 @@ public class spawnCube : MonoBehaviour {
 
 	void Update () {
 		for (int i = 0; i < 7; i++) {
-			if (top[i]>9)
+			if (top[i]>8)
 				stop ();
 		}
 	}
 
 	void FixedUpdate()
-	{
+	{		
 		timer += 0.02f;
-		if (timer >= 1) {
+		if (timer >= _internal) {
 			timer = 0;
-			int index = Random.Range (0, cubes.Length);
+			int sum = common * 5 + slow + color * 5 + rows * 4 + all + punish;
+			int[] rights = new int[]{ 
+				common,common,common,common,common,
+				slow,
+				color,color,color,color,color,
+				rows,rows,rows,rows,
+				all,
+				punish
+			};
+
+			int random = Random.Range (1, sum+1);
+			int index = 0;
+			int right = 0;
+			for (int i = 0; i < 17; i ++) {
+				right += rights [i];
+				if (right >= random) {
+					index = i;
+					break;
+				}
+			}
+
 			int xPos = Random.Range (0, 7);
 			GameObject cube = Instantiate (cubes [index],new Vector3(1.2f*(xPos-3),cubeSpawnPosition.position.y,cubeSpawnPosition.position.z),cubeSpawnPosition.rotation);
+			cube.transform.parent = cubepool.transform;
 			cube.GetComponent<basicCube>().map = map;
 			cube.GetComponent<basicCube>().top = top;
 			cube.GetComponent<basicCube> ().indexX = xPos;
-			cube.GetComponent<basicCube>().indexY = 14;
+			cube.GetComponent<basicCube>().indexY = 11;
 		}
 	}
 
-	void stop()
+	public void stop()
 	{
 		enabled = false;
+	}
+	public void pause()
+	{
+		enabled = false;
+	}
+	public void recover()
+	{
+		enabled = true;
 	}
 }
