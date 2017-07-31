@@ -18,7 +18,7 @@ public class gameController : MonoBehaviour {
 
 	bool running = true;
 	void Start () {
-		
+		init ();
 	}
 
 	void Update () {
@@ -26,6 +26,19 @@ public class gameController : MonoBehaviour {
 			if (top[i]>8&&running)
 				gameOver ();
 		}
+	}
+
+	public void init()
+	{
+		for (int i = 0; i < clicks.Count; i++)
+			clicks.RemoveAt (i);
+		for (int i = 0; i < cubepool.transform.childCount; i++) {
+				cubepool.transform.GetChild (i).GetComponent<basicCube> ().destroy ();
+		}
+		cubeSpawner.GetComponent<spawnCube> ().init ();
+		basicCube.init ();
+		clicktolink.turnOn ();
+		running = true;
 	}
 
 	public void gameOver()
@@ -42,6 +55,7 @@ public class gameController : MonoBehaviour {
 		cubeSpawner.GetComponent<spawnCube>().pause ();
 		pauseLayer.SetActive (true);
 		basicCube.pause ();
+		clicktolink.turnOff ();
 		
 	}
 	public void _continue()
@@ -50,6 +64,7 @@ public class gameController : MonoBehaviour {
 		cubeSpawner.GetComponent<spawnCube>().recover ();
 		pauseLayer.SetActive (false);
 		basicCube.recoverVelocity ();
+		clicktolink.turnOn ();
 	}
 
 	public void exit()
@@ -59,17 +74,18 @@ public class gameController : MonoBehaviour {
 
 	public void restart()
 	{
-		running = true;
-		destroyAll ();
-		for (int i = 0; i < cubepool.transform.childCount; i++) {
-			if(!cubepool.transform.GetChild (i).GetComponent<basicCube> ().getArriveState())
-				cubepool.transform.GetChild (i).GetComponent<basicCube> ().destroy ();
-		}
-		basicCube.init ();
+		init ();
+//		running = true;
+//		destroyAll ();
+//		for (int i = 0; i < cubepool.transform.childCount; i++) {
+//			if(!cubepool.transform.GetChild (i).GetComponent<basicCube> ().getArriveState())
+//				cubepool.transform.GetChild (i).GetComponent<basicCube> ().destroy ();
+//		}
+//		basicCube.init ();
 		pauseLayer.SetActive (false);
 		gameoverLayer.SetActive (false);
-		cubeSpawner.GetComponent<spawnCube> ().recover ();
-		basicCube.recoverVelocity ();
+//		cubeSpawner.GetComponent<spawnCube> ().recover ();
+//		basicCube.recoverVelocity ();
 	}
 
 	public void home()
@@ -80,12 +96,14 @@ public class gameController : MonoBehaviour {
 	public void slowDown()
 	{
 		basicCube.slowDown ();
+		cubeSpawner.GetComponent<spawnCube> ().slowDown ();
 		Invoke ("recover",5.0f);
 	}
 
 	public void recover()
 	{
 		basicCube.recoverVelocity ();
+		cubeSpawner.GetComponent<spawnCube> ().recoverSpeed ();
 	}
 
 	public void destroyAll()

@@ -4,14 +4,14 @@ using UnityEngine;
 using System;
 
 public class basicCube : MonoBehaviour {
-	public static float velocity = 7;
-	public static float precision = 0.15f;
+	static float velocity;
+	static float precision;
 	public static float highVelocity = 20;
-	public static float greatPrecision = 0.3f;
+	public static float greatPrecision = 0.1f;
 	public static float lowVelocity = 1;
-	public static float smallPrecision = 0.05f;
+	public static float smallPrecision = 0.01f;
 	public static float commonVelocity = 7;
-	public static float commonPrecision = 0.15f;
+	public static float commonPrecision = 0.03f;
 
 	static int destroyNumber = 0;
 
@@ -31,12 +31,38 @@ public class basicCube : MonoBehaviour {
 		destination = transform.position.y;
 	}
 
-	void Update () {
+//	void Update () {
+//		if (arrived) {
+//			if (indexY > 0 && !map [indexX] [indexY - 1])
+//				down ();
+//		} 
+//		else {
+//			if (map [indexX] [indexY])
+//				up ();
+//			if (!punish) {
+//				if (Mathf.Abs (destination - transform.position.y) < precision)
+//					arrive ();
+//				else
+//					transform.position -= new Vector3 (0, velocity * Time.deltaTime, 0);
+//			}
+//			else {
+//				if (Mathf.Abs (destination - transform.position.y) < greatPrecision) 
+//					arrive ();
+//				else
+//					transform.position -= new Vector3 (0, highVelocity * Time.deltaTime, 0);
+//			}			
+//		}
+//	}
+
+	void FixedUpdate()
+	{
 		if (arrived) {
 			if (indexY > 0 && !map [indexX] [indexY - 1])
 				down ();
 		} 
 		else {
+			if (map [indexX] [indexY])
+				up ();
 			if (!punish) {
 				if (Mathf.Abs (destination - transform.position.y) < precision)
 					arrive ();
@@ -48,8 +74,7 @@ public class basicCube : MonoBehaviour {
 					arrive ();
 				else
 					transform.position -= new Vector3 (0, highVelocity * Time.deltaTime, 0);
-			}
-			
+			}			
 		}
 	}
 
@@ -66,6 +91,19 @@ public class basicCube : MonoBehaviour {
 		_goto (destination);
 		indexY -= 1;
 //		transform.GetComponent<Rigidbody2D> ().velocity = new Vector3(0,-commonVelocity,0);
+	}
+
+	//用来矫正某些时候两个方方块部分重叠在一起，最后落在同一个地方的bug
+	public void up()
+	{
+		destination = destination + cubeLength;
+		if (transform.position.y < destination) {
+			transform.position += new Vector3 (0, destination - transform.position.y, 0);
+			arrive ();
+		}
+		else
+			_goto (destination);
+		indexY += 1;
 	}
 
 //	void OnTriggerEnter2D()
@@ -123,6 +161,8 @@ public class basicCube : MonoBehaviour {
 	static public void init()
 	{
 		destroyNumber = 0;
+		velocity = commonVelocity;
+		precision = commonPrecision;
 	}
 	static public int getDestroyNumber()
 	{

@@ -7,7 +7,7 @@ public class controller : MonoBehaviour {
 
 	public GameObject settingLayer;
 	public GameObject helpLayer;
-	public GameObject titleLayer;
+	public GameObject beginLayer;
 
 	void Start () {
 		
@@ -17,11 +17,9 @@ public class controller : MonoBehaviour {
 		bool back = Input.GetKeyDown (KeyCode.Escape);
 
 		if (back) {
-			if (settingLayer.activeSelf)
-				title ();
-			else if (helpLayer.activeSelf)
-				title ();
-			else if (titleLayer.activeSelf)
+			if (settingLayer.activeSelf||helpLayer.activeSelf)
+				begin ();
+			else if (beginLayer.activeSelf)
 				exit ();				
 		}
 	}
@@ -29,27 +27,42 @@ public class controller : MonoBehaviour {
 	public void beginGame()
 	{
 		SceneManager.LoadScene ("play");
+		basicCube.init ();
 	}
 
 	public void help()
 	{
-		helpLayer.SetActive (true);
-		settingLayer.SetActive (false);
-		titleLayer.SetActive (false);
+		if (helpLayer.activeSelf) {
+			helpLayer.SetActive (false);
+			beginLayer.SetActive (true);
+		} else {
+			settingLayer.SetActive (false);
+			beginLayer.SetActive (false);
+			helpLayer.SetActive (true);
+		}
+//
+//		helpLayer.SetActive (true);
+//		settingLayer.SetActive (false);
+//		titleLayer.SetActive (false);
 	}
 
 	public void setting()
 	{
-		helpLayer.SetActive (false);
-		settingLayer.SetActive (true);
-		titleLayer.SetActive (false);
+		if (settingLayer.activeSelf) {
+			settingLayer.SetActive (false);
+			beginLayer.SetActive (true);
+		} else {
+			helpLayer.SetActive (false);
+			beginLayer.SetActive (false);
+			settingLayer.SetActive (true);
+		}
 	}
 
-	public void title()
+	public void begin()
 	{
 		helpLayer.SetActive (false);
 		settingLayer.SetActive (false);
-		titleLayer.SetActive (true);
+		beginLayer.SetActive (true);
 	}
 
 	public void exit()

@@ -8,7 +8,9 @@ public class spawnCube : MonoBehaviour {
 	public GameObject gameController;
 	public GameObject cubepool;
 	List<List<GameObject>> map;
-	public float _internal = 0.3f;
+	float _internal = 0.3f;
+	public float lowInternal = 0.9f;
+	public float commonInternal = 0.3f;
 
 	public int common = 10;
 	public int slow = 6;
@@ -21,12 +23,15 @@ public class spawnCube : MonoBehaviour {
 
 	float timer = 0;
 	void Start () {
-		map = new List<List<GameObject>> ();
-		for(int i = 0;i<7;i++)
-			map.Add (new List<GameObject> (new GameObject[15]));
-		top = new int[7];
-		gameController.GetComponent<gameController> ().map = map;
-		gameController.GetComponent<gameController> ().top = top;
+//		map = new List<List<GameObject>> ();
+//		for(int i = 0;i<7;i++)
+//			map.Add (new List<GameObject> (new GameObject[15]));
+//		top = new int[7];
+//		init();
+//		gameController.GetComponent<gameController> ().map = map;
+//		gameController.GetComponent<gameController> ().top = top;
+
+//		_internal = commonInternal;
 	}
 
 	void Update () {
@@ -38,7 +43,7 @@ public class spawnCube : MonoBehaviour {
 
 	void FixedUpdate()
 	{		
-		timer += 0.02f;
+		timer += 0.01f;
 		if (timer >= _internal) {
 			timer = 0;
 			int sum = common * 5 + slow + color * 5 + rows * 4 + all + punish;
@@ -72,6 +77,31 @@ public class spawnCube : MonoBehaviour {
 		}
 	}
 
+	public void init()
+	{
+		enabled = true;
+		if (map!=null)
+			for (int i = 0; i < 7; i++)
+				for (int j = 0; j < 15; j++) {
+					map [i] [j] = null;
+				}
+		else {
+			map = new List<List<GameObject>> ();
+			for(int i = 0;i<7;i++)
+				map.Add (new List<GameObject> (new GameObject[15]));
+		}
+		
+		if(top!=null)
+			for (int i = 0; i < 7; i++)
+				top [i] = 0;
+		else
+			top = new int[7];
+		
+		gameController.GetComponent<gameController> ().map = map;
+		gameController.GetComponent<gameController> ().top = top;
+
+		_internal = commonInternal;
+	}
 	public void stop()
 	{
 		enabled = false;
@@ -83,5 +113,14 @@ public class spawnCube : MonoBehaviour {
 	public void recover()
 	{
 		enabled = true;
+	}
+
+	public void slowDown()
+	{
+		_internal = lowInternal;
+	}
+	public void recoverSpeed()
+	{
+		_internal = commonInternal;
 	}
 }

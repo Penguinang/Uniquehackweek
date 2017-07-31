@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class clicktolink : MonoBehaviour {
 	GameObject gameController;
+	static bool _switch = false;
 	bool selected = false;
 	void Start () {
 		gameController = GameObject.Find ("gameController");	
@@ -11,7 +12,7 @@ public class clicktolink : MonoBehaviour {
 
 	void OnMouseUp()
 	{
-		if (GetComponent<basicCube> ().getArriveState ()&&!selected) {
+		if (_switch&&GetComponent<basicCube> ().getArriveState ()&&!selected) {
 			int x = GetComponent<basicCube> ().indexX;
 			int y = GetComponent<basicCube> ().indexY;
 			select ();
@@ -33,5 +34,14 @@ public class clicktolink : MonoBehaviour {
 	void OnDestroy()
 	{
 		unselect ();
+	}
+
+	static public void turnOff()
+	{
+		_switch = false;
+	}
+	static public void turnOn()
+	{
+		_switch = true;
 	}
 }

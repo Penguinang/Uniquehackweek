@@ -13,6 +13,7 @@ public class slowdownCube : MonoBehaviour {
 	void slowDown()
 	{
 		gameController.GetComponent<gameController> ().slowDown ();
+		GetComponent<basicCube> ().destroy ();
 	}
 	void OnMouseUp()
 	{

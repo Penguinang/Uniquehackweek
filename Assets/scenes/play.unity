@@ -498,6 +498,52 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 592312502}
+--- !u!1001 &630923183
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4868205840950722, guid: 5673c53ed127b46288b736716fcb17fe, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0.25529093
+      objectReference: {fileID: 0}
+    - target: {fileID: 4868205840950722, guid: 5673c53ed127b46288b736716fcb17fe, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 2.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4868205840950722, guid: 5673c53ed127b46288b736716fcb17fe, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4868205840950722, guid: 5673c53ed127b46288b736716fcb17fe, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4868205840950722, guid: 5673c53ed127b46288b736716fcb17fe, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4868205840950722, guid: 5673c53ed127b46288b736716fcb17fe, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4868205840950722, guid: 5673c53ed127b46288b736716fcb17fe, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4868205840950722, guid: 5673c53ed127b46288b736716fcb17fe, type: 2}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1505318166495780, guid: 5673c53ed127b46288b736716fcb17fe, type: 2}
+      propertyPath: m_Name
+      value: line_top
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 5673c53ed127b46288b736716fcb17fe, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &654227660
 GameObject:
   m_ObjectHideFlags: 0
@@ -1190,7 +1236,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1978392911}
-        m_MethodName: exit
+        m_MethodName: home
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
