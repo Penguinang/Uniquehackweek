@@ -68,12 +68,12 @@ public class spawnCube : MonoBehaviour {
 			}
 
 			int xPos = Random.Range (0, 7);
-			GameObject cube = Instantiate (cubes [index],new Vector3(1.2f*(xPos-3),cubeSpawnPosition.position.y,cubeSpawnPosition.position.z),cubeSpawnPosition.rotation);
+			GameObject cube = Instantiate (cubes [index],new Vector3(1.25f*(xPos-3),cubeSpawnPosition.position.y,cubeSpawnPosition.position.z),cubeSpawnPosition.rotation);
 			cube.transform.parent = cubepool.transform;
 			cube.GetComponent<basicCube>().map = map;
 			cube.GetComponent<basicCube>().top = top;
 			cube.GetComponent<basicCube> ().indexX = xPos;
-			cube.GetComponent<basicCube>().indexY = 11;
+			cube.GetComponent<basicCube>().indexY = 9;
 		}
 	}
 

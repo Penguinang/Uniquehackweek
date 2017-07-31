@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class audioManager : MonoBehaviour {
 
-	public static bool music = true;
-	public static bool sound = true;
+	static bool music = true;
+	static bool sound = true;
 	public AudioSource audioSource;
+	public GameObject soundIcon;
+	public GameObject musicIcon;
 
 	void Start () {
 		DontDestroyOnLoad (gameObject);
@@ -20,6 +22,7 @@ public class audioManager : MonoBehaviour {
 	public void switchMusic()
 	{
 		music = !music;
+//		musicIcon.SetActive (!musicIcon.activeSelf);
 		if (music)
 			play ();
 		else
@@ -29,6 +32,8 @@ public class audioManager : MonoBehaviour {
 	public void switchSound()
 	{
 		sound = !sound;
+//		soundIcon.SetActive (!soundIcon.activeSelf);
+
 		print ("switch sound");
 	}
 
@@ -45,5 +50,12 @@ public class audioManager : MonoBehaviour {
 		audioSource.Play ();
 	}
 
-
+	static public bool getSound()
+	{
+		return sound;
+	}
+	static public bool getMusic()
+	{
+		return music;
+	}
 }

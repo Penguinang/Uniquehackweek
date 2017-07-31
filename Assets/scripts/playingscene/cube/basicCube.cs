@@ -86,7 +86,7 @@ public class basicCube : MonoBehaviour {
 
 	public void down()
 	{
-		destination = destination - cubeLength;
+		destination = destination - cubeLength - 0.05f;
 		map [indexX] [indexY] = null;
 		_goto (destination);
 		indexY -= 1;
@@ -96,7 +96,7 @@ public class basicCube : MonoBehaviour {
 	//用来矫正某些时候两个方方块部分重叠在一起，最后落在同一个地方的bug
 	public void up()
 	{
-		destination = destination + cubeLength;
+		destination = destination + cubeLength + 0.05f;
 		if (transform.position.y < destination) {
 			transform.position += new Vector3 (0, destination - transform.position.y, 0);
 			arrive ();

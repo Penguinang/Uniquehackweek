@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 
 public class gameController : MonoBehaviour {
@@ -15,6 +16,7 @@ public class gameController : MonoBehaviour {
 	public GameObject line;
 	public GameObject pauseLayer;
 	public GameObject gameoverLayer;
+	public GameObject cubeNumber;
 
 	bool running = true;
 	void Start () {
@@ -47,6 +49,7 @@ public class gameController : MonoBehaviour {
 //		SceneManager.LoadScene ("start");
 		gameoverLayer.SetActive(true);
 		basicCube.pause ();
+		cubeNumber.GetComponent<Text> ().text = "" + basicCube.getDestroyNumber ();
 	}
 
 	public void pause()
@@ -224,10 +227,10 @@ public class gameController : MonoBehaviour {
 		if (found) {
 			print ("found");
 			GameObject _line = Instantiate(line);
-			_line.GetComponent<LineRenderer> (). SetPosition (0,new Vector3((startX-3)*1.2f,(startY-7)*1.2f,-1));
-			_line.GetComponent<LineRenderer> ().SetPosition (1,new Vector3((starts[s][0]-3)*1.2f,(starts[s][1]-7)*1.2f,-1));
-			_line.GetComponent<LineRenderer> ().SetPosition (2,new Vector3((ends[e][0]-3)*1.2f,(ends[e][1]-7)*1.2f,-1));
-			_line.GetComponent<LineRenderer> (). SetPosition (3,new Vector3((endX-3)*1.2f,(endY-7)*1.2f,-1));
+			_line.GetComponent<LineRenderer> (). SetPosition (0,new Vector3((startX-3)*1.2f,0.625f + (startY-6)*1.25f,-1));
+			_line.GetComponent<LineRenderer> ().SetPosition (1,new Vector3((starts[s][0]-3)*1.2f,0.625f +  (starts[s][1]-6)*1.25f,-1));
+			_line.GetComponent<LineRenderer> ().SetPosition (2,new Vector3((ends[e][0]-3)*1.2f,0.625f + (ends[e][1]-6)*1.25f,-1));
+			_line.GetComponent<LineRenderer> (). SetPosition (3,new Vector3((endX-3)*1.2f,0.625f + (endY-6)*1.25f,-1));
 
 			start.GetComponent<clicktolink> ().unselect ();
 			end.GetComponent<clicktolink> ().unselect ();
