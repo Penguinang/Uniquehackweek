@@ -46,10 +46,10 @@ public class gameController : MonoBehaviour {
 	public void gameOver()
 	{
 		running = false;
-//		SceneManager.LoadScene ("start");
 		gameoverLayer.SetActive(true);
 		basicCube.pause ();
 		cubeNumber.GetComponent<Text> ().text = "" + basicCube.getDestroyNumber ();
+		clicktolink.turnOff ();
 	}
 
 	public void pause()

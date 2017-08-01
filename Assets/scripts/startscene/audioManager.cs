@@ -10,11 +10,22 @@ public class audioManager : MonoBehaviour {
 	public GameObject soundIcon;
 	public GameObject musicIcon;
 
+	static audioManager Instance;
+
 	void Start () {
+		if (!Instance)
+			Instance = this;
+		else
+			Destroy (gameObject);
 		DontDestroyOnLoad (gameObject);
 		audioSource = GetComponent<AudioSource> ();
 	}
 		
+	public static audioManager getInstance()
+	{
+		return Instance;
+	}
+
 	void Update () {
 		
 	}

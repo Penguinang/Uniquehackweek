@@ -9,7 +9,7 @@ public class basicCube : MonoBehaviour {
 	public static float highVelocity = 20;
 	public static float greatPrecision = 0.1f;
 	public static float lowVelocity = 1;
-	public static float smallPrecision = 0.01f;
+	public static float smallPrecision = 0.03f;
 	public static float commonVelocity = 7;
 	public static float commonPrecision = 0.03f;
 
@@ -61,20 +61,25 @@ public class basicCube : MonoBehaviour {
 				down ();
 		} 
 		else {
-			if (map [indexX] [indexY])
-				up ();
-			if (!punish) {
-				if (Mathf.Abs (destination - transform.position.y) < precision)
-					arrive ();
-				else
-					transform.position -= new Vector3 (0, velocity * Time.deltaTime, 0);
+			if (transform.position.y < destination) {
+				transform.position += new Vector3 (0, destination - transform.position.y, 0);
+				arrive ();
+			} else {
+				if (map [indexX] [indexY])
+					up ();
+				if (!punish) {
+					if (Mathf.Abs (destination - transform.position.y) < precision)
+						arrive ();
+					else
+						transform.position -= new Vector3 (0, velocity * Time.deltaTime, 0);
+				}
+				else {
+					if (Mathf.Abs (destination - transform.position.y) < greatPrecision) 
+						arrive ();
+					else
+						transform.position -= new Vector3 (0, highVelocity * Time.deltaTime, 0);
+				}			
 			}
-			else {
-				if (Mathf.Abs (destination - transform.position.y) < greatPrecision) 
-					arrive ();
-				else
-					transform.position -= new Vector3 (0, highVelocity * Time.deltaTime, 0);
-			}			
 		}
 	}
 
@@ -97,11 +102,11 @@ public class basicCube : MonoBehaviour {
 	public void up()
 	{
 		destination = destination + cubeLength + 0.05f;
-		if (transform.position.y < destination) {
-			transform.position += new Vector3 (0, destination - transform.position.y, 0);
-			arrive ();
-		}
-		else
+//		if (transform.position.y < destination) {
+//			transform.position += new Vector3 (0, destination - transform.position.y, 0);
+//			arrive ();
+//		}
+//		else
 			_goto (destination);
 		indexY += 1;
 	}

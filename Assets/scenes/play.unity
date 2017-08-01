@@ -265,12 +265,12 @@ MonoBehaviour:
   cubepool: {fileID: 524879183}
   lowInternal: 0.9
   commonInternal: 0.3
-  common: 10
+  common: 20
   slow: 6
-  color: 3
-  rows: 2
+  color: 2
+  rows: 1
   all: 1
-  punish: 2
+  punish: 14
 --- !u!1 &363715416
 GameObject:
   m_ObjectHideFlags: 0
