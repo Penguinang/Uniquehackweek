@@ -28,6 +28,14 @@ public class gameController : MonoBehaviour {
 			if (top[i]>8&&running)
 				gameOver ();
 		}
+
+		bool back = Input.GetKeyDown (KeyCode.Escape);
+		if (back) {
+			if (running)
+				pause ();
+			else
+				_continue ();
+		}
 	}
 
 	public void init()

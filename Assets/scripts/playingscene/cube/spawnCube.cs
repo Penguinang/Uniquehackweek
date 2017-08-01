@@ -15,7 +15,10 @@ public class spawnCube : MonoBehaviour {
 	public int common = 10;
 	public int slow = 6;
 	public int color = 3;
-	public int rows = 2;
+	public int row1 = 2;
+	public int row2 = 1;
+	public int row3 = 2;
+	public int row4 = 4;
 	public int all = 1;
 	public int punish = 2;
 
@@ -46,12 +49,12 @@ public class spawnCube : MonoBehaviour {
 		timer += 0.01f;
 		if (timer >= _internal) {
 			timer = 0;
-			int sum = common * 5 + slow + color * 5 + rows * 4 + all + punish;
+			int sum = common * 5 + slow + color * 5 + row1 + row2 +row3 + row4 + all + punish;
 			int[] rights = new int[]{ 
 				common,common,common,common,common,
 				slow,
 				color,color,color,color,color,
-				rows,rows,rows,rows,
+				row1,row2,row3,row4,
 				all,
 				punish
 			};
