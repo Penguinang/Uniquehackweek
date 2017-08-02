@@ -1,24 +1,46 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class audioManager : MonoBehaviour {
-
-	static bool music = true;
-	static bool sound = true;
-	public AudioSource audioSource;
+	
+	bool _music = true;
+	public bool music
+	{
+		get{ return _music; }
+	}
+	bool _sound = true;
+	public bool sound
+	{
+		get{ return _sound;}
+	}
+	public AudioSource audioSourceBGM;
+	public AudioSource audioSourceEffect;
 	public GameObject soundIcon;
 	public GameObject musicIcon;
-
 	static audioManager Instance;
+
+	public AudioClip start;
+	public AudioClip exit;
+	public AudioClip gameover;
+	public AudioClip setting;
+	public AudioClip function;
+	public AudioClip destroy;
+	public AudioClip warning;
+	public AudioClip punish;
 
 	void Start () {
 		if (!Instance)
 			Instance = this;
-		else
+		else {
 			Destroy (gameObject);
+			musicIcon.GetComponent<Toggle> ().isOn = getInstance ()._music;
+			soundIcon.GetComponent<Toggle> ().isOn = getInstance ()._sound;
+			musicIcon.GetComponent<Toggle> ().onValueChanged.AddListener(new UnityEngine.Events.UnityAction<bool>(Instance.switchMusic));
+			soundIcon.GetComponent<Toggle> ().onValueChanged.AddListener(new UnityEngine.Events.UnityAction<bool>(Instance.switchSound));
+		}
 		DontDestroyOnLoad (gameObject);
-		audioSource = GetComponent<AudioSource> ();
 	}
 		
 	public static audioManager getInstance()
@@ -27,46 +49,75 @@ public class audioManager : MonoBehaviour {
 	}
 
 	void Update () {
-		
 	}
 
-	public void switchMusic()
+	public void switchMusic(bool a)
 	{
-		music = !music;
-//		musicIcon.SetActive (!musicIcon.activeSelf);
+		print (a);
+		playSetting();
+		_music = a;
 		if (music)
 			play ();
 		else
 			pause ();
-		print ("switch music");
 	}
-	public void switchSound()
+	public void switchSound(bool a)
 	{
-		sound = !sound;
-//		soundIcon.SetActive (!soundIcon.activeSelf);
-
-		print ("switch sound");
+		_sound = a;
+		playSetting();
 	}
 
 	public void pause()
 	{
-		audioSource.Pause ();
+		audioSourceBGM.Pause ();
 	}
 	public void stop()
 	{
-		audioSource.Stop ();
+		audioSourceBGM.Stop ();
 	}
 	public void play()
 	{
-		audioSource.Play ();
+		audioSourceBGM.Play ();
 	}
 
-	static public bool getSound()
+	void playEffect(AudioClip clip)
 	{
-		return sound;
+		if (sound) {
+			audioSourceEffect.clip = clip;
+			audioSourceEffect.Play ();
+		}
 	}
-	static public bool getMusic()
+
+	public void playStart()
 	{
-		return music;
+		playEffect(start);
+	}
+	public void playSetting()
+	{
+		playEffect(setting);
+	}
+	public void playExit()
+	{
+		playEffect(exit);
+	}
+	public void playGG()
+	{
+		playEffect (gameover);
+	}
+	public void playDestroy()
+	{
+		playEffect(destroy);
+	}
+	public void playFunction()
+	{
+		playEffect(function);
+	}
+	public void playWarn()
+	{
+		playEffect (warning);
+	}
+	public void playPunish()
+	{
+		playEffect (punish);
 	}
 }

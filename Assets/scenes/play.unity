@@ -272,7 +272,7 @@ MonoBehaviour:
   row2: 5
   row3: 4
   row4: 2
-  all: 20
+  all: 2
   punish: 2
 --- !u!1 &363715416
 GameObject:

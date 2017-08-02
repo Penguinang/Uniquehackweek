@@ -31,24 +31,12 @@ public class controller : MonoBehaviour {
 	public void beginGame()
 	{
 		SceneManager.LoadScene ("play");
+		audioManager.getInstance ().playStart ();
 		basicCube.init ();
 	}
 
 	public void help()
 	{
-//		if (helpLayer.activeSelf) {
-//			helpLayer.SetActive (false);
-//			beginLayer.SetActive (true);
-//		} else {
-//			settingLayer.SetActive (false);
-//			beginLayer.SetActive (false);
-//			helpLayer.SetActive (true);
-//		}
-//
-//		helpLayer.SetActive (true);
-//		settingLayer.SetActive (false);
-//		titleLayer.SetActive (false);
-
 		helpLayer.SetActive (!helpLayer.activeSelf);
 		helpIndex = 0;
 		showHelp ();
@@ -76,14 +64,6 @@ public class controller : MonoBehaviour {
 
 	public void setting()
 	{
-//		if (settingLayer.activeSelf) {
-//			settingLayer.SetActive (false);
-//			beginLayer.SetActive (true);
-//		} else {
-//			helpLayer.SetActive (false);
-//			beginLayer.SetActive (false);
-//			settingLayer.SetActive (true);
-//		}
 		settingLayer.SetActive(!settingLayer.activeSelf);
 	}
 

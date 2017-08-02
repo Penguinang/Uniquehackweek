@@ -55,6 +55,7 @@ public class gameController : MonoBehaviour {
 	public void gameOver()
 	{
 		running = false;
+		audioManager.getInstance ().playGG();
 		gameoverLayer.SetActive(true);
 		basicCube.pause ();
 		cubeNumber.GetComponent<Text> ().text = "" + basicCube.getDestroyNumber ();
@@ -101,13 +102,9 @@ public class gameController : MonoBehaviour {
 		slowdownCube.turnOff ();
 	}
 
-	public void exit()
-	{
-		Application.Quit ();
-	}
-
 	public void restart()
 	{
+		audioManager.getInstance ().playStart ();
 		init ();
 		pauseLayer.SetActive (false);
 		gameoverLayer.SetActive (false);
@@ -116,6 +113,7 @@ public class gameController : MonoBehaviour {
 	public void home()
 	{
 		SceneManager.LoadScene ("start");
+		audioManager.getInstance ().playExit ();
 	}
 
 	public void slowDown()
@@ -269,10 +267,12 @@ public class gameController : MonoBehaviour {
 			end.GetComponent<clicktolink> ().unselect ();
 			start.GetComponent<basicCube> ().destroy ();
 			end.GetComponent<basicCube> ().destroy ();
+			audioManager.getInstance ().playDestroy ();
 			clicks.RemoveAt (1);
 			clicks.RemoveAt (0);
 		} else {
 			print ("no way");
+			audioManager.getInstance ().playWarn ();
 			start.GetComponent<clicktolink> ().unselect ();
 			clicks.RemoveAt (0);
 		}

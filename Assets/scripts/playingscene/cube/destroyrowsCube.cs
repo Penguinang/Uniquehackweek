@@ -18,7 +18,9 @@ public class destroyrowsCube : MonoBehaviour {
 	}
 	void OnMouseUp()
 	{
-		if (_switch && GetComponent<basicCube> ().getArriveState ()) {
+		if(_switch)
+		if (GetComponent<basicCube> ().getArriveState ()||GetComponent<basicCube>().indexY<3) {
+			audioManager.getInstance ().playFunction ();
 			destroyrow ();
 			GetComponent<basicCube> ().destroy ();
 		}

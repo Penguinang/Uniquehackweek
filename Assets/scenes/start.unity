@@ -669,6 +669,7 @@ GameObject:
   - component: {fileID: 448525259}
   - component: {fileID: 448525260}
   - component: {fileID: 448525261}
+  - component: {fileID: 448525262}
   m_Layer: 0
   m_Name: audiomanager
   m_TagString: Untagged
@@ -700,9 +701,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0123037f43a3448ec87a3d93e57146de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioSource: {fileID: 0}
-  soundIcon: {fileID: 0}
-  musicIcon: {fileID: 0}
+  music: 1
+  audioSourceBGM: {fileID: 448525261}
+  audioSourceEffect: {fileID: 448525262}
+  soundIcon: {fileID: 927729611}
+  musicIcon: {fileID: 1490408283}
+  start: {fileID: 8300000, guid: 9809c3e55a0be4a3c813a9924d84ebd4, type: 3}
+  exit: {fileID: 8300000, guid: a290c5f3c61fd42b6b4d12b384c2f5cb, type: 3}
+  gameover: {fileID: 8300000, guid: c7aa162936043422f841320e96868e0c, type: 3}
+  setting: {fileID: 8300000, guid: 1fd21843fccbf445eb1fa86c3ecfb083, type: 3}
+  function: {fileID: 8300000, guid: 1ea17493d05e14c088135a40c2f730b5, type: 3}
+  destroy: {fileID: 8300000, guid: 2bcb0997e8cb245f8a59d3bc07d77f1f, type: 3}
+  warning: {fileID: 8300000, guid: 7d4c8e2d0a627400fbd4f60db2ab39e5, type: 3}
+  punish: {fileID: 8300000, guid: 7bc2f924f1cd24521bb36268931a486a, type: 3}
 --- !u!82 &448525261
 AudioSource:
   m_ObjectHideFlags: 0
@@ -714,7 +725,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 03a34c64dafcd4d3fa007de75687ee4f, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -771,6 +782,86 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+--- !u!82 &448525262
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 448525258}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: c7aa162936043422f841320e96868e0c, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -1366,7 +1457,7 @@ GameObject:
   - component: {fileID: 927729612}
   - component: {fileID: 927729613}
   m_Layer: 5
-  m_Name: soubd
+  m_Name: sound
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1435,7 +1526,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 448525260}
         m_MethodName: switchSound
-        m_Mode: 1
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2070,7 +2161,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 448525260}
         m_MethodName: switchMusic
-        m_Mode: 1
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

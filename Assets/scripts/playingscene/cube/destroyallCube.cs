@@ -21,10 +21,13 @@ public class destroyallCube : MonoBehaviour {
 	}
 	void OnMouseUp()
 	{
-		if (_switch && GetComponent<basicCube> ().getArriveState ()) {
+		if(_switch)
+		if (GetComponent<basicCube> ().getArriveState ()||GetComponent<basicCube>().indexY<3) {
+			audioManager.getInstance ().playFunction ();
 			destroyall ();
 			GetComponent<basicCube> ().destroy ();
 		}
+
 	}
 
 	public static void turnOn()

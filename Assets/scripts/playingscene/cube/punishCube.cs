@@ -32,8 +32,11 @@ public class punishCube : MonoBehaviour {
 
 	void OnMouseUp()
 	{
-		if(_switch&&!GetComponent<basicCube>().getArriveState())
+		if (_switch)
+		if (!GetComponent<basicCube> ().getArriveState () || GetComponent<basicCube> ().indexY < 3) {
+			audioManager.getInstance ().playPunish ();
 			punish ();
+		}
 	}
 
 	static public void turnOff()

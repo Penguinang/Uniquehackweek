@@ -12,9 +12,8 @@ public class clicktolink : MonoBehaviour {
 
 	void OnMouseUp()
 	{
-		if (_switch&&GetComponent<basicCube> ().getArriveState ()&&!selected) {
-			int x = GetComponent<basicCube> ().indexX;
-			int y = GetComponent<basicCube> ().indexY;
+		if(_switch&&!selected)
+		if (GetComponent<basicCube> ().getArriveState ()) {
 			select ();
 			gameController.GetComponent<gameController> ().click (gameObject);
 		}

@@ -1,8 +1,29 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workbench>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="link" expanded="True">
+            <Node name="Assembly-CSharp" expanded="True">
+              <Node name="scripts" expanded="True">
+                <Node name="playingscene" expanded="True">
+                  <Node name="cube" expanded="True" />
+                </Node>
+                <Node name="startscene" expanded="True">
+                  <Node name="audioManager.cs" selected="True" />
+                </Node>
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <RunToCursorBreakpoint file="/home/penguinang/Unique Mission/hackweek/link/Assets/scripts/startscene/audioManager.cs" line="23" column="112" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>
