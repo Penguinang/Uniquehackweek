@@ -701,7 +701,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0123037f43a3448ec87a3d93e57146de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  music: 1
   audioSourceBGM: {fileID: 448525261}
   audioSourceEffect: {fileID: 448525262}
   soundIcon: {fileID: 927729611}
@@ -723,7 +722,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 03a34c64dafcd4d3fa007de75687ee4f, type: 3}
+  m_audioClip: {fileID: 8300000, guid: a3544aa65a5214c6084d5b68608a5f15, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.2
   m_Pitch: 1

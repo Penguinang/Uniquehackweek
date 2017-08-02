@@ -51,10 +51,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\scripts\playingscene\cube\accelerate.cs" />
      <Compile Include="Assets\scripts\playingscene\cube\basicCube.cs" />
      <Compile Include="Assets\scripts\playingscene\cube\clicktolink.cs" />
-     <Compile Include="Assets\scripts\playingscene\cube\cubePosition.cs" />
      <Compile Include="Assets\scripts\playingscene\cube\destroyallCube.cs" />
      <Compile Include="Assets\scripts\playingscene\cube\destroycolorCube.cs" />
      <Compile Include="Assets\scripts\playingscene\cube\destroyrowsCube.cs" />

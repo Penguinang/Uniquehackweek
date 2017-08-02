@@ -25,17 +25,6 @@ public class spawnCube : MonoBehaviour {
 	int[] top;
 
 	float timer = 0;
-	void Start () {
-//		map = new List<List<GameObject>> ();
-//		for(int i = 0;i<7;i++)
-//			map.Add (new List<GameObject> (new GameObject[15]));
-//		top = new int[7];
-//		init();
-//		gameController.GetComponent<gameController> ().map = map;
-//		gameController.GetComponent<gameController> ().top = top;
-
-//		_internal = commonInternal;
-	}
 
 	void Update () {
 		for (int i = 0; i < 7; i++) {

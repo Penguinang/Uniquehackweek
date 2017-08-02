@@ -42,36 +42,23 @@ public class basicCube : MonoBehaviour {
 		}
 	}
 
+	float fixedDeltatime = 0.01f;
 	//因为自己封装了destroy方法，有时候会重复调用导致出错，所以用exist保证destroy方法只会调用一次
 	bool exist = true;
 
+//	float time = 0;
 	void Start () {
 //		transform.GetComponent<Rigidbody2D> ().velocity = new Vector3(0,-commonVelocity,0);
 		destination = transform.position.y;
 	}
 
-//	void Update () {
-//		if (arrived) {
-//			if (indexY > 0 && !map [indexX] [indexY - 1])
-//				down ();
-//		} 
-//		else {
-//			if (map [indexX] [indexY])
-//				up ();
-//			if (!punish) {
-//				if (Mathf.Abs (destination - transform.position.y) < precision)
-//					arrive ();
-//				else
-//					transform.position -= new Vector3 (0, velocity * Time.deltaTime, 0);
-//			}
-//			else {
-//				if (Mathf.Abs (destination - transform.position.y) < greatPrecision) 
-//					arrive ();
-//				else
-//					transform.position -= new Vector3 (0, highVelocity * Time.deltaTime, 0);
-//			}			
-//		}
-//	}
+	void Update()
+	{
+//		float deltatime = Time.deltaTime;
+//		time += deltatime;
+//		if (time <= 1.5f)
+//			velocity += commonVelocity * deltatime / 1.5f;
+	}
 
 	void FixedUpdate()
 	{
@@ -90,13 +77,13 @@ public class basicCube : MonoBehaviour {
 					if (Mathf.Abs (destination - transform.position.y) < precision)
 						arrive ();
 					else
-						transform.position -= new Vector3 (0, velocity * Time.deltaTime, 0);
+						transform.position -= new Vector3 (0, velocity * fixedDeltatime, 0);
 				}
 				else {
 					if (Mathf.Abs (destination - transform.position.y) < greatPrecision) 
 						arrive ();
 					else
-						transform.position -= new Vector3 (0, highVelocity * Time.deltaTime, 0);
+						transform.position -= new Vector3 (0, highVelocity * fixedDeltatime, 0);
 				}			
 			}
 		}
@@ -121,12 +108,7 @@ public class basicCube : MonoBehaviour {
 	public void up()
 	{
 		destination = destination + cubeLength + 0.05f;
-//		if (transform.position.y < destination) {
-//			transform.position += new Vector3 (0, destination - transform.position.y, 0);
-//			arrive ();
-//		}
-//		else
-			_goto (destination);
+		_goto (destination);
 		indexY += 1;
 	}
 
