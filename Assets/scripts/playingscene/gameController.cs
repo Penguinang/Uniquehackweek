@@ -47,7 +47,8 @@ public class gameController : MonoBehaviour {
 		}
 		cubeSpawner.GetComponent<spawnCube> ().init ();
 		basicCube.init ();
-		clicktolink.turnOn ();
+//		clicktolink.turnOn ();
+		activateClickCube();
 		running = true;
 	}
 
@@ -57,7 +58,8 @@ public class gameController : MonoBehaviour {
 		gameoverLayer.SetActive(true);
 		basicCube.pause ();
 		cubeNumber.GetComponent<Text> ().text = "" + basicCube.getDestroyNumber ();
-		clicktolink.turnOff ();
+		inactivateClickCube ();
+//		clicktolink.turnOff ();
 	}
 
 	public void pause()
@@ -66,8 +68,8 @@ public class gameController : MonoBehaviour {
 		cubeSpawner.GetComponent<spawnCube>().pause ();
 		pauseLayer.SetActive (true);
 		basicCube.pause ();
-		clicktolink.turnOff ();
-		
+//		clicktolink.turnOff ();
+		inactivateClickCube();
 	}
 	public void _continue()
 	{
@@ -75,7 +77,28 @@ public class gameController : MonoBehaviour {
 		cubeSpawner.GetComponent<spawnCube>().recover ();
 		pauseLayer.SetActive (false);
 		basicCube.recoverVelocity ();
+//		clicktolink.turnOn ();
+		activateClickCube();
+	}
+
+	void activateClickCube()
+	{
 		clicktolink.turnOn ();
+		destroyallCube.turnOn ();
+		destroyrowsCube.turnOn ();
+		destroycolorCube.turnOn ();
+		punishCube.turnOn ();
+		slowdownCube.turnOn ();
+	}
+
+	void inactivateClickCube()
+	{
+		clicktolink.turnOff ();
+		destroyallCube.turnOff ();
+		destroyrowsCube.turnOff ();
+		destroycolorCube.turnOff ();
+		punishCube.turnOff ();
+		slowdownCube.turnOff ();
 	}
 
 	public void exit()
@@ -86,17 +109,8 @@ public class gameController : MonoBehaviour {
 	public void restart()
 	{
 		init ();
-//		running = true;
-//		destroyAll ();
-//		for (int i = 0; i < cubepool.transform.childCount; i++) {
-//			if(!cubepool.transform.GetChild (i).GetComponent<basicCube> ().getArriveState())
-//				cubepool.transform.GetChild (i).GetComponent<basicCube> ().destroy ();
-//		}
-//		basicCube.init ();
 		pauseLayer.SetActive (false);
 		gameoverLayer.SetActive (false);
-//		cubeSpawner.GetComponent<spawnCube> ().recover ();
-//		basicCube.recoverVelocity ();
 	}
 
 	public void home()
@@ -119,10 +133,15 @@ public class gameController : MonoBehaviour {
 
 	public void destroyAll()
 	{
-		for (int i = 0; i < 7; i++)
-			for (int j = 0; j < 10; j++)
-				if (map [i] [j])
-					map [i] [j].GetComponent<basicCube>().destroy ();
+		for (int i = 0; i < cubepool.transform.childCount; i++) {
+			basicCube cube = cubepool.transform.GetChild (i).GetComponent<basicCube> ();
+			if(cube.indexY<7)
+				cube.destroy ();
+		}
+//		for (int i = 0; i < 7; i++)
+//			for (int j = 0; j < 10; j++)
+//				if (map [i] [j])
+//					map [i] [j].GetComponent<basicCube>().destroy ();
 				
 	}
 
@@ -136,10 +155,16 @@ public class gameController : MonoBehaviour {
 
 	public void destroyColor(string color)
 	{
-		for (int i = 0; i < 7; i++)
-			for (int j = 0; j < 10; j++)
-				if (map [i] [j]&&map[i][j].tag == color)
-					map [i] [j].GetComponent<basicCube>().destroy ();
+//		for (int i = 0; i < 7; i++)
+//			for (int j = 0; j < 10; j++)
+//				if (map [i] [j]&&map[i][j].tag == color)
+//					map [i] [j].GetComponent<basicCube>().destroy ();
+
+		for (int i = 0; i < cubepool.transform.childCount; i++) {
+			basicCube cube = cubepool.transform.GetChild (i).GetComponent<basicCube> ();
+			if (cube.indexY < 7 && cube.gameObject.tag == color) 
+				cube.destroy ();
+		}
 	}
 
 	public void click(GameObject cube)

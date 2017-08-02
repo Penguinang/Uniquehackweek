@@ -6,6 +6,7 @@ public class destroyrowsCube : MonoBehaviour {
 
 	public int number = 0;
 	public GameObject gameController;
+	static bool _switch = false;
 	void Start()
 	{
 		gameController = GameObject.Find ("gameController");
@@ -17,7 +18,18 @@ public class destroyrowsCube : MonoBehaviour {
 	}
 	void OnMouseUp()
 	{
-		if(GetComponent<basicCube>().getArriveState())
+		if (_switch && GetComponent<basicCube> ().getArriveState ()) {
 			destroyrow ();
+			GetComponent<basicCube> ().destroy ();
+		}
+	}
+
+	static public void turnOff()
+	{
+		_switch = false;
+	}
+	static public void turnOn()
+	{
+		_switch = true;
 	}
 }

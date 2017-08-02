@@ -5,6 +5,7 @@ using UnityEngine;
 public class destroyallCube : MonoBehaviour {
 
 	public GameObject gameController;
+	static bool _switch = false;
 	void Start()
 	{
 		gameController = GameObject.Find ("gameController");
@@ -20,7 +21,18 @@ public class destroyallCube : MonoBehaviour {
 	}
 	void OnMouseUp()
 	{
-		if(GetComponent<basicCube>().getArriveState())
+		if (_switch && GetComponent<basicCube> ().getArriveState ()) {
 			destroyall ();
+			GetComponent<basicCube> ().destroy ();
+		}
+	}
+
+	public static void turnOn()
+	{
+		_switch = true;
+	}
+	public static void turnOff()
+	{
+		_switch = false;
 	}
 }

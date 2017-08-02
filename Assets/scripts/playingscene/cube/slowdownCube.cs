@@ -5,6 +5,7 @@ using UnityEngine;
 public class slowdownCube : MonoBehaviour {
 
 	public GameObject gameController;
+	static bool _switch = false;
 	void Start()
 	{
 		gameController = GameObject.Find ("gameController");
@@ -17,7 +18,16 @@ public class slowdownCube : MonoBehaviour {
 	}
 	void OnMouseUp()
 	{
-		if(GetComponent<basicCube>().getArriveState())
+		if(_switch&&GetComponent<basicCube>().getArriveState())
 			slowDown ();
+	}
+
+	static public void turnOff()
+	{
+		_switch = false;
+	}
+	static public void turnOn()
+	{
+		_switch = true;
 	}
 }

@@ -76,7 +76,7 @@ public class spawnCube : MonoBehaviour {
 			cube.GetComponent<basicCube>().map = map;
 			cube.GetComponent<basicCube>().top = top;
 			cube.GetComponent<basicCube> ().indexX = xPos;
-			cube.GetComponent<basicCube>().indexY = 9;
+			cube.GetComponent<basicCube>().indexY = 10;
 		}
 	}
 

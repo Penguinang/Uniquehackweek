@@ -5,6 +5,7 @@ using UnityEngine;
 public class punishCube : MonoBehaviour {
 	basicCube basic;
 	bool active = false;
+	static bool _switch = false;
 	void Start () {
 		basic = GetComponent<basicCube> ();
 	}
@@ -27,12 +28,21 @@ public class punishCube : MonoBehaviour {
 	{
 		basic.activatePunish ();
 		active = true;
-		print ("punish start");
 	}
 
 	void OnMouseUp()
 	{
-		if(!GetComponent<basicCube>().getArriveState())
+		if(_switch&&!GetComponent<basicCube>().getArriveState())
 			punish ();
 	}
+
+	static public void turnOff()
+	{
+		_switch = false;
+	}
+	static public void turnOn()
+	{
+		_switch = true;
+	}
 }
+

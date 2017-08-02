@@ -23,8 +23,27 @@ public class basicCube : MonoBehaviour {
 	public float cubeLength = 1.2f;
 	public List<List<GameObject>> map;
 	public int[] top;
-	public int indexX;
-	public int indexY;
+	private int _indexX;
+	public int indexX
+	{
+		get{return _indexX;}
+		set{ _indexX = value;}
+	}
+	private int _indexY;
+	public int indexY
+	{
+		get{return _indexY; }
+		set{if (value < 0)
+				_indexY = 0;
+			else if (value > 11)
+				_indexX = 11;
+			else
+				_indexY = value;
+		}
+	}
+
+	//因为自己封装了destroy方法，有时候会重复调用导致出错，所以用exist保证destroy方法只会调用一次
+	bool exist = true;
 
 	void Start () {
 //		transform.GetComponent<Rigidbody2D> ().velocity = new Vector3(0,-commonVelocity,0);
@@ -138,9 +157,16 @@ public class basicCube : MonoBehaviour {
 	{
 		return arrived && onGround;
 	}
+	public bool isEffectAvailable()
+	{
+		return indexY < 3;
+	}
 
 	public void destroy()
 	{
+		if (!exist)
+			return;
+		exist = false;
 		map[indexX][indexY] = null;
 		if(getArriveState())
 			top [indexX]--;

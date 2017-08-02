@@ -265,12 +265,15 @@ MonoBehaviour:
   cubepool: {fileID: 524879183}
   lowInternal: 0.9
   commonInternal: 0.3
-  common: 20
-  slow: 6
-  color: 2
-  rows: 1
-  all: 1
-  punish: 14
+  common: 11
+  slow: 3
+  color: 4
+  row1: 7
+  row2: 5
+  row3: 4
+  row4: 2
+  all: 20
+  punish: 2
 --- !u!1 &363715416
 GameObject:
   m_ObjectHideFlags: 0
@@ -336,7 +339,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 363715416}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.02, y: 4.375, z: 0}
+  m_LocalPosition: {x: 0.02, y: 5.625, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
