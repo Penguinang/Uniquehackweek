@@ -10,7 +10,7 @@ public class basicCube : MonoBehaviour {
 	public static float greatPrecision = 0.1f;
 	public static float lowVelocity = 1;
 	public static float smallPrecision = 0.03f;
-	public static float commonVelocity = 7;
+	public static float commonVelocity = 11;
 	public static float commonPrecision = 0.03f;
 
 	static int destroyNumber = 0;
